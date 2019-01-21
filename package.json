@@ -1,0 +1,43 @@
+{
+  "name": "graphql-basics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/register": "^7.0.0",
+    "apollo-boost": "^0.1.23",
+    "bcryptjs": "^2.4.3",
+    "cross-fetch": "^3.0.0",
+    "dotenv": "^6.2.0",
+    "graphql": "^14.1.0",
+    "graphql-yoga": "^1.16.9",
+    "jsonwebtoken": "^8.4.0",
+    "normalize.css": "^8.0.1",
+    "prisma-binding": "^2.2.14"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "env-cmd": "^8.0.2",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.9"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "heroku-postbuild": "babel src --out-dir dist --copy-files",
+    "start-dev": "env-cmd ./config/dev.env babel-node src/index.js",
+    "dev": "nodemon --exec npm run start-dev --ext js,graphql",
+    "get-schema": "graphql get-schema -p prisma --dotenv ./config/dev.env",
+    "prisma": "cd prisma && prisma deploy && cd ../ && npm run get-schema",
+    "test": "env-cmd ./config/test.env jest --watch --runInBand"
+  },
+  "jest": {
+    "globalSetup": "./tests/jest/globalSetup.js",
+    "globalTeardown": "./tests/jest/globalTeardown.js"
+  }
+}
